@@ -122,50 +122,50 @@ public class RolKayit extends ListenerAdapter {
     public void KayitMesaji(Guild guild, TextChannel textChannel) {
         MessageEmbed oyunmesaj = Embed("Aşağıdaki oyun ifadelerine tıklayarak istediğiniz oyun rolüne sahip olabilirsiniz.", Color.cyan).build();
         MessageEmbed ligmesaj = Embed("Aşağıdaki lig ifadelerine tıklayarak Valorant ve League of Legends oyunları için liginizle birlikte seçim yapabilirsiniz.", Color.cyan).build();
-        List<Emote> emoteList = new ArrayList<>();
+        ArrayList<Emote> emoteList = new ArrayList<>();
+
         for (Emote emote : Objects.requireNonNull(guild).getEmotes()) {
             if (emote.getName().contains("lig_")) {
                 emoteList.add(emote);
             }
         }
-        for (Emote emote : emoteList) {
-            if (emote.getName().contains("lig_valorant_demir"))
-                emoteList.set(0, emote);
-            if (emote.getName().contains("lig_valorant_bronz"))
-                emoteList.set(1, emote);
-            if (emote.getName().contains("lig_valorant_gumus"))
-                emoteList.set(2, emote);
-            if (emote.getName().contains("lig_valorant_altin"))
-                emoteList.set(3, emote);
-            if (emote.getName().contains("lig_valorant_plat"))
-                emoteList.set(4, emote);
-            if (emote.getName().contains("lig_valorant_elmas"))
-                emoteList.set(5, emote);
-            if (emote.getName().contains("lig_valorant_immo"))
-                emoteList.set(6, emote);
-            if (emote.getName().contains("lig_valorant_radyant"))
-                emoteList.set(7, emote);
-        }
+
+
         for (Emote emote : Objects.requireNonNull(guild).getEmotes()) {
-            if (emote.getName().contains("lig_lol")) {
-                emoteList.add(emote);
-            }
-        }
-        for (Emote emote : emoteList) {
-            if (emote.getName().contains("lig_lol_bronz"))
+            if (emote.getName().equalsIgnoreCase("lig_valorant_demir"))
+                emoteList.set(0, emote);
+            if (emote.getName().equalsIgnoreCase("lig_valorant_bronz"))
+                emoteList.set(1, emote);
+            if (emote.getName().equalsIgnoreCase("lig_valorant_gumus"))
+                emoteList.set(2, emote);
+            if (emote.getName().equalsIgnoreCase("lig_valorant_altin"))
+                emoteList.set(3, emote);
+            if (emote.getName().equalsIgnoreCase("lig_valorant_plat"))
+                emoteList.set(4, emote);
+            if (emote.getName().equalsIgnoreCase("lig_valorant_elmas"))
+                emoteList.set(5, emote);
+            if (emote.getName().equalsIgnoreCase("lig_valorant_immo"))
+                emoteList.set(6, emote);
+            if (emote.getName().equalsIgnoreCase("lig_valorant_radyant"))
+                emoteList.set(7, emote);
+            if (emote.getName().equalsIgnoreCase("lig_lol_demir"))
                 emoteList.set(8, emote);
-            if (emote.getName().contains("lig_lol_gumus"))
+            if (emote.getName().equalsIgnoreCase("lig_lol_bronz"))
                 emoteList.set(9, emote);
-            if (emote.getName().contains("lig_lol_altin"))
+            if (emote.getName().equalsIgnoreCase("lig_lol_gumus"))
                 emoteList.set(10, emote);
-            if (emote.getName().contains("lig_lol_plat"))
+            if (emote.getName().equalsIgnoreCase("lig_lol_altin"))
                 emoteList.set(11, emote);
-            if (emote.getName().contains("lig_lol_elmas"))
+            if (emote.getName().equalsIgnoreCase("lig_lol_plat"))
                 emoteList.set(12, emote);
-            if (emote.getName().contains("lig_lol_master"))
+            if (emote.getName().equalsIgnoreCase("lig_lol_elmas"))
                 emoteList.set(13, emote);
-            if (emote.getName().contains("lig_lol_challanger"))
+            if (emote.getName().equalsIgnoreCase("lig_lol_master"))
                 emoteList.set(14, emote);
+            if (emote.getName().equalsIgnoreCase("lig_lol_grandmaster"))
+                emoteList.set(15, emote);
+            if (emote.getName().equalsIgnoreCase("lig_lol_challanger"))
+                emoteList.set(16, emote);
         }
         textChannel.sendMessageEmbeds(ligmesaj).queue(message -> {
             for (Emote emote : emoteList) {
