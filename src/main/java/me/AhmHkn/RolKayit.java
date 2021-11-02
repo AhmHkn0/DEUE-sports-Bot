@@ -52,6 +52,13 @@ public class RolKayit extends ListenerAdapter {
         if (Objects.requireNonNull(e.getUser()).isBot()) return;
         Role rol = RolCek(e.getGuild(), e.getReaction().getReactionEmote().getName());
         if (rol != null) {
+            if (e.getReactionEmote().getName().contains("lig_")) {
+                for (Role role : e.getMember().getRoles()) {
+                    if (role.getName().contains("Valorant") || role.getName().contains("LoL")) {
+                        e.getGuild().removeRoleFromMember(e.getMember(), role).queue();
+                    }
+                }
+            }
             if (!Objects.requireNonNull(e.getMember()).getRoles().contains(rol)) {
                 e.getGuild().addRoleToMember(e.getMember().getIdLong(), rol).queue();
             }
