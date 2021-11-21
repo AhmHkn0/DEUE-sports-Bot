@@ -77,9 +77,9 @@ public class RolKayit extends ListenerAdapter {
             }
             if (!Objects.requireNonNull(e.getMember()).getRoles().contains(rol)) {
                 e.getGuild().addRoleToMember(e.getMember().getIdLong(), rol).queue();
-                if (valorantoyun != null)
+                if (valorantoyun != null && e.getReactionEmote().getName().contains("valorant"))
                     e.getGuild().addRoleToMember(e.getMember().getIdLong(), valorantoyun).queue();
-                if (loloyun != null)
+                if (loloyun != null && e.getReactionEmote().getName().contains("lol"))
                     e.getGuild().addRoleToMember(e.getMember().getIdLong(), loloyun).queue();
             }
         }
@@ -104,9 +104,9 @@ public class RolKayit extends ListenerAdapter {
             }
             if (Objects.requireNonNull(e.getMember()).getRoles().contains(rol)) {
                 e.getGuild().removeRoleFromMember(e.getMember().getIdLong(), rol).queue();
-                if (valorantoyun != null)
+                if (valorantoyun != null && e.getReactionEmote().getName().contains("valorant"))
                     e.getGuild().removeRoleFromMember(e.getMember(), valorantoyun).queue();
-                if (loloyun != null)
+                if (loloyun != null && e.getReactionEmote().getName().contains("lol"))
                     e.getGuild().removeRoleFromMember(e.getMember(), loloyun).queue();
             }
         }
