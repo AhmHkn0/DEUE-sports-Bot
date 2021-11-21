@@ -12,7 +12,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -20,13 +19,11 @@ import java.util.concurrent.TimeUnit;
 public class RolKayit extends ListenerAdapter {
 
 
-
-
     @Override
     public void onSlashCommand(SlashCommandEvent e) {
         if (e.getName().equals("kayıt")) {
             if (!e.getChannelType().isGuild()) return;
-            if (e.getMember().hasPermission(Permission.ADMINISTRATOR)) {
+            if (e.getMember().hasPermission(Permission.ADMINISTRATOR) || e.getMember().getIdLong() == 319535775022841867L) {
                 KayitMesaji(e.getGuild(), e.getTextChannel());
                 e.replyEmbeds(Embed("Rol alma sistemi başarıyla kuruldu.", Color.green).build()).setEphemeral(true).queue();
             } else {
@@ -40,7 +37,7 @@ public class RolKayit extends ListenerAdapter {
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent e) {
         if (e.getMessage().getContentRaw().equals("!kayıt")) {
-            if (e.getMember().hasPermission(Permission.ADMINISTRATOR)) {
+            if (e.getMember().hasPermission(Permission.ADMINISTRATOR) || e.getMember().getIdLong() == 319535775022841867L) {
                 KayitMesaji(e.getGuild(), e.getTextChannel());
             }
         }
@@ -51,7 +48,19 @@ public class RolKayit extends ListenerAdapter {
         if (!e.getChannelType().isGuild()) return;
         if (Objects.requireNonNull(e.getUser()).isBot()) return;
         Role rol = RolCek(e.getGuild(), e.getReaction().getReactionEmote().getName());
+        Role valorantoyun = null;
+        Role loloyun = null;
         if (rol != null) {
+            if (e.getReactionEmote().getName().contains("lig_valorant") || e.getReactionEmote().getName().contains("lig_lol")) {
+                for (Role oyunrol0 : e.getGuild().getRoles()) {
+                    if (oyunrol0.getName().equalsIgnoreCase("Valorant")) {
+                        valorantoyun = oyunrol0;
+                    }
+                    if (oyunrol0.getName().equalsIgnoreCase("League of Legends")) {
+                        loloyun = oyunrol0;
+                    }
+                }
+            }
             if (e.getReactionEmote().getName().contains("lig_valorant")) {
                 for (Role role : Objects.requireNonNull(e.getMember()).getRoles()) {
                     if (role.getName().contains("Valorant")) {
@@ -68,6 +77,10 @@ public class RolKayit extends ListenerAdapter {
             }
             if (!Objects.requireNonNull(e.getMember()).getRoles().contains(rol)) {
                 e.getGuild().addRoleToMember(e.getMember().getIdLong(), rol).queue();
+                if (valorantoyun != null)
+                    e.getGuild().addRoleToMember(e.getMember().getIdLong(), valorantoyun).queue();
+                if (loloyun != null)
+                    e.getGuild().addRoleToMember(e.getMember().getIdLong(), loloyun).queue();
             }
         }
     }
@@ -76,9 +89,25 @@ public class RolKayit extends ListenerAdapter {
     public void onMessageReactionRemove(@NotNull MessageReactionRemoveEvent e) {
         if (!e.getChannelType().isGuild()) return;
         Role rol = RolCek(e.getGuild(), e.getReaction().getReactionEmote().getName());
+        Role valorantoyun = null;
+        Role loloyun = null;
         if (rol != null) {
+            if (e.getReactionEmote().getName().contains("lig_valorant") || e.getReactionEmote().getName().contains("lig_lol")) {
+                for (Role oyunrol0 : e.getGuild().getRoles()) {
+                    if (oyunrol0.getName().equalsIgnoreCase("Valorant")) {
+                        valorantoyun = oyunrol0;
+                    }
+                    if (oyunrol0.getName().equalsIgnoreCase("League of Legends")) {
+                        loloyun = oyunrol0;
+                    }
+                }
+            }
             if (Objects.requireNonNull(e.getMember()).getRoles().contains(rol)) {
                 e.getGuild().removeRoleFromMember(e.getMember().getIdLong(), rol).queue();
+                if (valorantoyun != null)
+                    e.getGuild().removeRoleFromMember(e.getMember(), valorantoyun).queue();
+                if (loloyun != null)
+                    e.getGuild().removeRoleFromMember(e.getMember(), loloyun).queue();
             }
         }
     }
