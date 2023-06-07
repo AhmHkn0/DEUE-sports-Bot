@@ -1,5 +1,6 @@
 package me.AhmHkn;
 
+import net.dv8tion.jda.api.*;
 
 import static me.AhmHkn.DEUEsporBot.*;
 
